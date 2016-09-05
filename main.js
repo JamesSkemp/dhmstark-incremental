@@ -2,5 +2,6 @@
 
 function cookieClick(number) {
 	cookies += number;
-	console.log(cookies);
+
+	document.getElementById('cookies').innerHTML = cookies;
 }
