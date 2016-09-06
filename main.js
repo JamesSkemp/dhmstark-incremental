@@ -34,6 +34,19 @@ function saveData() {
 	localStorage.setItem('save', JSON.stringify(saveInfo));
 }
 
+function loadData() {
+	var saveGame = JSON.parse(localStorage.getItem('save'));
+	
+	if (saveGame !== null) {
+		if (typeof saveGame.cookies !== undefined) {
+			cookies = saveGame.cookies;
+		}
+		if (typeof saveGame.cursors !== undefined) {
+			cursors = saveGame.cursors;
+		}
+	}
+}
+
 function removeData() {
 	localStorage.removeItem('save');
 }
