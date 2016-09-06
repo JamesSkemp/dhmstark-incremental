@@ -11,7 +11,7 @@ var saveInfo = {
 function cookieClick(number) {
 	cookies += number;
 
-	document.getElementById('cookies').innerHTML = cookies;
+	document.getElementById('cookies').innerHTML = prettify(cookies);
 }
 
 function buyCursor() {
@@ -22,12 +22,12 @@ function buyCursor() {
 		cursors++;
 		cookies -= cursorCost;
 
-		document.getElementById('cursors').innerHTML = cursors;
-		document.getElementById('cookies').innerHTML = cookies;
+		document.getElementById('cursors').innerHTML = prettify(cursors);
+		document.getElementById('cookies').innerHTML = prettify(cookies);
 	}
 
 	var nextCursorCost = Math.floor(10 * Math.pow(1.1, cursors));
-	document.getElementById('cursorCost').innerHTML = nextCursorCost;
+	document.getElementById('cursorCost').innerHTML = prettify(nextCursorCost);
 }
 
 function saveData() {
@@ -36,6 +36,11 @@ function saveData() {
 
 function removeData() {
 	localStorage.removeItem('save');
+}
+
+function prettify(input) {
+	var output = Math.round(input * 1000000) / 1000000;
+	return output;
 }
 
 window.setInterval(function () {
