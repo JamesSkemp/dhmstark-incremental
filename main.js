@@ -1,5 +1,12 @@
 ﻿var cookies = 0;
 var cursors = 0;
+var prestige = 0;
+
+var saveInfo = {
+	cookies: cookies,
+	cursors: cursors,
+	prestige: prestige
+}
 
 function cookieClick(number) {
 	cookies += number;
@@ -21,6 +28,10 @@ function buyCursor() {
 
 	var nextCursorCost = Math.floor(10 * Math.pow(1.1, cursors));
 	document.getElementById('cursorCost').innerHTML = nextCursorCost;
+}
+
+function saveData() {
+	localStorage.setItem('save', JSON.stringify(saveInfo));
 }
 
 window.setInterval(function () {
