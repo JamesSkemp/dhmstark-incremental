@@ -2,16 +2,10 @@
 var cursors = 0;
 var prestige = 0;
 
-var saveInfo = {
-	cookies: cookies,
-	cursors: cursors,
-	prestige: prestige
-}
-
 function cookieClick(number) {
 	cookies += number;
 
-	document.getElementById('cookies').innerHTML = prettify(cookies);
+	updateText();
 }
 
 function buyCursor() {
@@ -21,16 +15,18 @@ function buyCursor() {
 	if (cookies >= cursorCost) {
 		cursors++;
 		cookies -= cursorCost;
-
-		document.getElementById('cursors').innerHTML = prettify(cursors);
-		document.getElementById('cookies').innerHTML = prettify(cookies);
 	}
 
-	var nextCursorCost = Math.floor(10 * Math.pow(1.1, cursors));
-	document.getElementById('cursorCost').innerHTML = prettify(nextCursorCost);
+	updateText();
 }
 
 function saveData() {
+	var saveInfo = {
+		cookies: cookies,
+		cursors: cursors,
+		prestige: prestige
+	}
+
 	localStorage.setItem('save', JSON.stringify(saveInfo));
 }
 
@@ -44,6 +40,11 @@ function loadData() {
 		if (typeof saveGame.cursors !== undefined) {
 			cursors = saveGame.cursors;
 		}
+		if (typeof saveGame.prestige !== undefined) {
+			prestige = saveGame.prestige;
+		}
+
+		updateText();
 	}
 }
 
@@ -54,6 +55,17 @@ function removeData() {
 function prettify(input) {
 	var output = Math.round(input * 1000000) / 1000000;
 	return output;
+}
+
+function updateText() {
+	document.getElementById('cursors').innerHTML = prettify(cursors);
+	document.getElementById('cookies').innerHTML = prettify(cookies);
+
+	var nextCursorCost = Math.floor(10 * Math.pow(1.1, cursors));
+	if (nextCursorCost <= 0) {
+		nextCursorCost = 10;
+	}
+	document.getElementById('cursorCost').innerHTML = prettify(nextCursorCost);
 }
 
 window.setInterval(function () {
