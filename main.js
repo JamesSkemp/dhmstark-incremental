@@ -34,6 +34,10 @@ function saveData() {
 	localStorage.setItem('save', JSON.stringify(saveInfo));
 }
 
+function removeData() {
+	localStorage.removeItem('save');
+}
+
 window.setInterval(function () {
 	cookieClick(cursors);
 }, 1000);
